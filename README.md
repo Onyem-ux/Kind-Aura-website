@@ -26,4 +26,4 @@ One-page React site built with Vite.
 ## Before launch
 - Confirm the email address with the client (Kaurahealthcare@gmail.com does not match the domain).
 - Have the client review every FAQ answer and service description.
-- The contact form opens the visitor's email app; connect Formspree/EmailJS if it should deliver straight to an inbox.
+- The contact form posts to Formspree (set in `src/content.js`). Confirm the receiving email in the Formspree account before launch.

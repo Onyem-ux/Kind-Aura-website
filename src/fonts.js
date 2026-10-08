@@ -9,9 +9,9 @@
 // Sections: header, hero, about, services, approach, faq, contact, footer
 
 export const fonts = {
-  default:  { heading: 'Cormorant Garamond',        body: 'Archivo' },
+  default:  { heading: 'Cormorant Garamond',        body: 'DM serif text' },
 
-  header:   { heading: '', body: '' },
+  header:   { heading: '', body: 'Cormorant Garamond' },
   hero:     { heading: '', body: '' },
   about:    { heading: '', body: '' },
   services: { heading: '', body: '' },

@@ -9,6 +9,7 @@ export const business = {
   addressLine1: '2311 Temple View Court',
   addressLine2: 'Snellville, GA 30078',
   website: 'kindaurahealthcare.com',
+  formEndpoint: 'https://formspree.io/f/mjygyrrj', // Formspree form link: messages are delivered to the email set in your Formspree account
 }
 
 export const nav = [
@@ -20,7 +21,7 @@ export const nav = [
 
 export const hero = {
   title: 'Skilled, caring support for your loved one, right at home.',
-  text: 'We provide a family-focused, cost-effective care for medically complex clients in Snellville and the surrounding Georgia community.',
+  text: 'Kind Aura Healthcare Services provides family-focused, cost-effective care for medically complex clients in Snellville and the surrounding Georgia community.',
   primaryCta: 'Request a consultation',
 }
 

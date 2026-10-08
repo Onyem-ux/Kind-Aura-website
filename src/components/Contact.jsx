@@ -1,14 +1,31 @@
+import { useState } from 'react'
 import { sectionStyle } from '../fonts.js'
 import { business, contact } from '../content.js'
+import Select from './Select.jsx'
 
 export default function Contact() {
-  // Opens the visitor's email app with the message filled in.
-  // For delivery straight to an inbox, replace this with a Formspree / Netlify Forms / EmailJS call.
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
+
+  // Sends the form to Formspree (endpoint is set in src/content.js).
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const f = new FormData(e.currentTarget)
-    const body = `Name: ${f.get('name')}\nContact: ${f.get('contact')}\nService: ${f.get('service')}\n\n${f.get('message')}`
-    window.location.href = `mailto:${business.email}?subject=${encodeURIComponent('Care inquiry from website')}&body=${encodeURIComponent(body)}`
+    const form = e.currentTarget
+    setStatus('sending')
+    try {
+      const res = await fetch(business.formEndpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      })
+      if (res.ok) {
+        form.reset()
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -26,11 +43,17 @@ export default function Contact() {
         <form onSubmit={handleSubmit}>
           <label>Your name<input name="name" required autoComplete="name" /></label>
           <label>Phone or email<input name="contact" required /></label>
-          <label>Service of interest
-            <select name="service">{contact.serviceOptions.map((o) => (<option key={o}>{o}</option>))}</select>
-          </label>
+          <Select label="Service of interest" name="service" options={contact.serviceOptions} />
           <label>How can we help?<textarea name="message" /></label>
-          <button className="btn" type="submit">Send message</button>
+          {/* Hidden spam trap: real visitors never see or fill this */}
+          <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" style={{ display: 'none' }} />
+          <button className="btn" type="submit" disabled={status === 'sending'}>
+            {status === 'sending' ? 'Sending...' : 'Send message'}
+          </button>
+          <div aria-live="polite">
+            {status === 'success' && <p className="form-msg ok">Thank you! Your message was sent. We will be in touch soon.</p>}
+            {status === 'error' && <p className="form-msg bad">Something went wrong. Please try again or call {business.phone}.</p>}
+          </div>
         </form>
       </div>
     </section>

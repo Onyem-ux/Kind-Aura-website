@@ -91,10 +91,67 @@ address{font-style:normal;margin-top:1.5rem;display:grid;gap:1rem}
 address a{color:#fff;font-weight:700}
 address small{display:block;color:#A9C8CC}
 form{background:#fff;color:var(--text);padding:1.8rem;border-radius:10px;display:grid;gap:1rem}
-label{font-weight:700;font-size:.95rem;display:grid;gap:.3rem}
-input,select,textarea{font:inherit;padding:.7rem .8rem;border:1.5px solid #B8CBCE;border-radius:6px;background:#fff;width:100%}
+label{font-weight:600;font-size:.95rem;font-spacing:0.02em;display:grid;gap:.3rem}
+input,select,textarea{font:inherit; font-weight:500;padding:.7rem .8rem;border:1.5px solid #B8CBCE;border-radius:6px;background:#fff;width:100%}
 textarea{min-height:110px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:3px solid var(--gold);border-color:var(--teal)}
 
 footer{padding:1.6rem 0;background:#07262E;color:#A9C8CC;font-size:.92rem;text-align:center}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+
+/* Form status messages */
+.form-msg{font-weight:700;font-size:.95rem}
+.form-msg.ok{color:#17693d}
+.form-msg.bad{color:#a12b2b}
+.btn:disabled{opacity:.6;cursor:wait}
+
+/* ---------- FAQ animation ---------- */
+.faq-item{background:var(--bg);border:1px solid var(--line);border-radius:8px;transition:border-color .25s ease,box-shadow .25s ease}
+.faq-item.open{border-color:var(--gold);box-shadow:0 4px 14px rgba(15,76,92,.08)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.2rem;background:none;border:0;font:inherit;font-weight:700;color:var(--teal-dark);text-align:left;cursor:pointer;transition:color .2s ease}
+.faq-q:hover{color:var(--teal)}
+.faq-icon{position:relative;width:16px;height:16px;flex:none}
+.faq-icon::before,.faq-icon::after{content:"";position:absolute;left:0;top:50%;width:100%;height:2px;margin-top:-1px;background:var(--gold);border-radius:2px;transition:transform .3s ease}
+.faq-icon::after{transform:rotate(90deg)}
+.faq-item.open .faq-icon::after{transform:rotate(0)}
+.faq-a{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .35s ease,visibility 0s .35s}
+.faq-item.open .faq-a{grid-template-rows:1fr;visibility:visible;transition-delay:0s}
+.faq-a>div{overflow:hidden}
+.faq-a p{padding:0 1.2rem 1.1rem;color:var(--muted);opacity:0;transform:translateY(-6px);transition:opacity .3s ease,transform .3s ease}
+.faq-item.open .faq-a p{opacity:1;transform:none;transition-delay:.08s}
+
+/* Custom dropdown */
+.field{display:grid;gap:.3rem}
+.field-label{font-weight:600;font-size:.95rem;letter-spacing:.02em}
+.select{position:relative}
+.select-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;font:inherit;font-weight:500;text-align:left;padding:.7rem .8rem;border:1.5px solid #B8CBCE;border-radius:6px;background:#fff;color:var(--text);cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease,transform .12s ease}
+.select-btn:hover{border-color:var(--teal)}
+.select-btn:active{transform:scale(.985)}
+.select.open .select-btn{border-color:var(--teal);box-shadow:0 0 0 3px rgba(227,166,59,.45)}
+
+/* Arrow icon: rotates with a small bounce */
+.select-arrow{width:12px;height:8px;margin-right:.35rem;flex:none;color:var(--teal);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.select.open .select-arrow{transform:rotate(180deg)}
+
+/* Menu: fades and slides down */
+.select-menu{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:5;list-style:none;background:#fff;border:1.5px solid #B8CBCE;border-radius:8px;box-shadow:0 10px 24px rgba(10,53,65,.15);padding:.3rem;opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top;transition:opacity .2s ease,transform .25s ease,visibility 0s .25s}
+.select.open .select-menu{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+
+/* Options: cascade in one after another */
+.select-menu li{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.6rem .7rem;border-radius:5px;cursor:pointer;opacity:0;transition:background .15s ease}
+.select.open .select-menu li{animation:optIn .32s ease both;animation-delay:calc(var(--i) * 45ms)}
+@keyframes optIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.select-menu li.active{background:var(--aqua)}
+.select-menu li[aria-selected="true"]{font-weight:700;color:var(--teal)}
+
+/* Checkmark: small, gold, only on the selected option, draws itself */
+.select-check{width:12px;height:10px;flex:none;color:var(--gold);opacity:0}
+.select-check path{stroke-dasharray:16;stroke-dashoffset:16}
+.select-menu li[aria-selected="true"] .select-check{opacity:1}
+.select.open .select-menu li[aria-selected="true"] .select-check path{animation:drawCheck .35s ease .25s forwards}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+
+/* Respect visitors who prefer less motion */
+@media(prefers-reduced-motion:reduce){
+  .faq-a,.faq-a p,.faq-icon::before,.faq-icon::after,.select-menu,.select-arrow{transition:none}
+} 
