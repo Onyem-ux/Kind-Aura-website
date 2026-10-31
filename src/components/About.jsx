@@ -13,7 +13,7 @@ export default function About() {
             {mission.paragraphs.map((p) => (<p key={p}>{p}</p>))}
           </div>
         </div>
-        <ImagePlaceholder className="wide" label="Photo: the Kind Aura care team" size="1200 x 450 px" />
+        <ImagePlaceholder className="wide" src="/images/team.jpg" alt="The Kind Aura care team" />
       </div>
     </section>
   )

@@ -15,7 +15,7 @@ export default function Hero() {
           </div>
         </div>
         {/* Replace with: src="/images/hero.jpg" alt="Caregiver sharing a moment with a client at home" */}
-        <ImagePlaceholder label="Hero photo: caregiver with client at home" size="800 x 700 px" />
+       <ImagePlaceholder src="/images/hero.jpg" alt="Caregiver sharing a moment with a client at home" />
       </div>
     </section>
   )

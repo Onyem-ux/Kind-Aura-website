@@ -6,7 +6,7 @@ export default function Approach() {
   return (
     <section id="approach" style={sectionStyle('approach')}>
       <div className="wrap approach">
-        <ImagePlaceholder label="Photo: family with their loved one" size="700 x 600 px" />
+        <ImagePlaceholder src="/images/family.jpg" alt="A family with their loved one at home" />
         <div>
           <h2>{approach.title}</h2>
           <div className="promise">

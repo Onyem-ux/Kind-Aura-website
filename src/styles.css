@@ -155,3 +155,5 @@ footer{padding:1.6rem 0;background:#07262E;color:#A9C8CC;font-size:.92rem;text-a
 @media(prefers-reduced-motion:reduce){
   .faq-a,.faq-a p,.faq-icon::before,.faq-icon::after,.select-menu,.select-arrow{transition:none}
 } 
+
+.approach .photo{aspect-ratio:7/6}
